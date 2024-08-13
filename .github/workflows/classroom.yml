@@ -1,0 +1,38 @@
+name: Autograding Tests
+'on':
+- push
+- repository_dispatch
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Client test
+      id: client-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Client test
+        setup-command: npm install
+        command: CI=true npm test -t client.test
+        timeout: 5
+    - name: Server test
+      id: server-test
+      uses: classroom-resources/autograding-command-grader@v1
+      with:
+        test-name: Server test
+        setup-command: ''
+        command: CI=true npm test -t server.test
+        timeout: 5
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        CLIENT-TEST_RESULTS: "${{steps.client-test.outputs.result}}"
+        SERVER-TEST_RESULTS: "${{steps.server-test.outputs.result}}"
+      with:
+        runners: client-test,server-test
