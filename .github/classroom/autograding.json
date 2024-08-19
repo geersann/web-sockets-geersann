@@ -2,7 +2,7 @@
     "tests": [
       {
         "name": "Client test",
-        "setup": "git clone https://github.com/nrevutska-students/react-websockets-tests tests && npm install",
+        "setup": "npm install",
         "run": "CI=true npm test -t client.test",
         "input": "",
         "output": "",
