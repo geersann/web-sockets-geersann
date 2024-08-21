@@ -14,10 +14,6 @@ wss.on('connection', (ws) => {
             }
         });
     });
-
-    ws.on('close', () => {
-        console.log('Client disconnected');
-    });
 });
 
 // Do not remove this export. wss should be the name of your WebSocket Server instance

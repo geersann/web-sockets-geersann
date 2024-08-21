@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const chat = document.getElementById("chat");
-    const sendButton = document.querySelector("button");
+    const sendButton = document.getElementById("send");
     const nicknameInput = document.getElementById("userName");
     const messageInput = document.getElementById("message");
 
